@@ -1,7 +1,7 @@
 import React from "react"
 
 import "./style.css"
-import SectionHeader from "../home/SectionHeader"
+import SectionHeader from "../SectionHeader"
 
 export default function Footer() {
     return <section className={"footer-section"} data-scroll-section>
