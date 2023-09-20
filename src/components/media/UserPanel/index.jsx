@@ -1,7 +1,7 @@
 import React from "react";
-import UploadPhoto from "../DemoUploadPhoto";
+import UploadPhoto from "../UploadPhoto";
 import { Link } from "react-router-dom"
-import UserProfile from "../DemoUserProfile";
+import UserProfile from "../UserProfile";
 
 import "./style.css"
 

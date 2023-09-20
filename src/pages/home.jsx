@@ -1,9 +1,9 @@
-import Navbar from "../components/Navbar"
+import Navbar from "../components/home/Navbar"
 import Footer from "../components/Footer"
-import Header from "../components/Header"
-import Featured from "../components/Featured"
-import About from "../components/About"
-import Gallery from "../components/Gallery"
+import Header from "../components/home/Header"
+import Featured from "../components/home/Featured"
+import About from "../components/home/About"
+import Gallery from "../components/home/Gallery"
 
 
 import './home.css';

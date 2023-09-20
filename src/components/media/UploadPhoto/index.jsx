@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import * as tmImage from '@teachablemachine/image';
-import UploadDialogue from "../DemoUploadDialogue";
+import UploadDialogue from "../UploadDialogue";
 
 import "./style.css"
 

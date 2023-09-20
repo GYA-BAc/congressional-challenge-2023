@@ -1,5 +1,5 @@
 import React from "react";
-import UserPanel from "../components/DemoUserPanel";
+import UserPanel from "../components/media/UserPanel";
 
 import "./media.css"
 
