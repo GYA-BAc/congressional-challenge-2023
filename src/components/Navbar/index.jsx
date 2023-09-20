@@ -23,7 +23,7 @@ export default function Navbar() {
         <div className={"navbar-section"} data-scroll-section>
             <button onClick={scrollToAbout} className="about-link" id="link">About</button>
             <button onClick={scrollToCredits} className="credits-link" id="link">Credit</button>
-            <Link to="/demo" id="link">Try It!</Link>
+            <Link to="/media" id="link">Try It!</Link>
         </div>
     )
 }

@@ -1,5 +1,5 @@
 import { Route, Routes } from "react-router-dom"
-import Demo from "./pages/demo"
+import Media from "./pages/media"
 import Home from "./pages/home"
 
 function App() {
@@ -10,7 +10,7 @@ function App() {
     
           <Routes>
             <Route exact path="/" element={<Home/>}/>
-            <Route path="/demo" element={<Demo/>}/>
+            <Route path="/media" element={<Media/>}/>
           </Routes>
 
   );
