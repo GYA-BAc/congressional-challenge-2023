@@ -1,24 +1,10 @@
-.bottom-panel-container {
-    position: fixed;
-    background-color: #2229;
-    width: 95%;
-    height: 15%;
-    bottom: 10px;
-    right: 2%;
-
-    display: flex;
-    justify-content: center;
-
-    border-radius: 15px;
-}
-
 .side-panel-container {
     position: fixed;
     background-color: #2225;
     width: 20%;
-    height: 80%;
-    top: 10px;
-    left: 10px;
+    height: 96%;
+    top: 2%;
+    left: 2%;
 
     border-radius: 15px;
 

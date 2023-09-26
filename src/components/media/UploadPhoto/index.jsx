@@ -66,8 +66,16 @@ export default function UploadPhoto() {
             return
         }
         webcam.update(); // update the webcam frame
-        await predict();
-        window.requestAnimationFrame(loop);
+
+        try {
+            await predict();
+            window.requestAnimationFrame(loop);
+        } catch(e) {
+            // if something errors here, it could be that user has left page. Either way, stop webcam
+            webcam.stop()
+            return
+        }
+        
     }
 
     async function predict() {
@@ -87,15 +95,19 @@ export default function UploadPhoto() {
         }
 
         // console.log(prediction[highestPrediction].className)
+
+        if (prediction[highestPrediction].probability > .85) {
+            predictionBox.innerHTML = prediction[highestPrediction].className
+        } else {
+            predictionBox.innerHTML = "Nothing in frame!"
+        } 
         
-        predictionBox.innerHTML = prediction[highestPrediction].className
-        }
+    }
 
             
 
     return (
         <>
-            <UploadDialogue/>
             <img className="upload-button" onClick={init} src="/assets/camera.png"/>
         </>
     )

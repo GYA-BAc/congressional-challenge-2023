@@ -15,11 +15,9 @@ export default function UserPanel() {
                 </Link>
                 <UserProfile/>
                 <div className="error-panel" hidden></div>
-            </div>
-
-            <div className="bottom-panel-container">
                 <UploadPhoto/>
             </div>
+
         </>
     )
 
