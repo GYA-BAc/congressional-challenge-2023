@@ -24,7 +24,7 @@
     border-radius: 10px;
     
     color: white;
-    background: #2225; /*rgba*/
+    background: #2223; /*rgba*/
     padding: 20px;
     display: grid;
     font-size: 20px;
@@ -57,42 +57,14 @@
     margin-bottom: 10px;
 }
 
-#hidden {
-    opacity: 0;
-}
 
 .container .box:nth-child(1) {
     grid-column: span 2;
-    grid-row: span 3;
 
     background-image: url("~/public/assets/logo.png");
-    background-size: cover;
+    background-size: contain;
+    background-repeat: no-repeat;
     background-position: 50% 50%;
     
-}
-
-.container .box:nth-child(2) {
-    grid-column: span 2;
-    grid-row: span 1
-}
-
-.container .box:nth-child(3) {
-    opacity: 0;
-    grid-column: span 1;
-}
-
-.container .box:nth-child(4) {
-    grid-column: span 1;
-    grid-row: span 3
-}
-
-.container .box:nth-child(7) {
-    grid-column: span 2;
-    grid-row: span 2;
-}
-
-.container .box:nth-child(8) {
-    grid-column: span 1;
-    grid-row: span 2;
 }
 

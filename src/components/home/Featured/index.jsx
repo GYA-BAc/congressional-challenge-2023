@@ -18,31 +18,11 @@ export default function Featured() {
                 </div>
             </div>
 
-            <div className="box" id="hidden">
-                <div className="featured-content">
-                    <img src="assets/bottle.png"></img>
-                    <p>hi3</p>
-                </div>
-            </div>
 
             <div className="box" data-scroll>
                 <div className="featured-content">
                     <img src="assets/bottle.png"></img>
                     <p>Less than 91% of recyclable materals are handled properly.</p>
-                </div>
-            </div>
-
-            <div className="box" id="hidden">
-                <div className="featured-content">
-                    <img src="favicon.ico"></img>
-                    <p>hi5</p>
-                </div>
-            </div>
-
-            <div className="box" id="hidden">
-                <div className="featured-content">
-                    <img src="favicon.ico"></img>
-                    <p>hi6</p>
                 </div>
             </div>
 
@@ -57,13 +37,6 @@ export default function Featured() {
                 <div className="featured-content">
                     <img src="assets/turtle.png"></img>
                     <p>A turtle has a 22% of dying if it eats just one piece of plastic.</p>
-                </div>
-            </div>
-
-            <div className="box" id="hidden">
-                <div className="featured-content">
-                    <img src="favicon.ico"></img>
-                    <p>hi9</p>
                 </div>
             </div>
 
