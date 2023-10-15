@@ -47,14 +47,13 @@ const Home = () => {
     
       {preloader ? 
         <div className="loader-wrapper absolute">
-          <h1>EcoTracer</h1>
-          <h2>Team 6 "Think About It"</h2>
+          <h1>Team <i>"Think About It"</i></h1>
+          <h2>Presents</h2>
         </div> 
 
           :
 
-        <div className="App" id="main-container" data-scroll-container>
-          <div/>
+        <div className="App" id="main-container" data-scroll-container><div/>
           <Navbar/>
           <Header/>
           <Featured/>

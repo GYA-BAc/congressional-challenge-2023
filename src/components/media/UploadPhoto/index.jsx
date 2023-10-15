@@ -96,7 +96,7 @@ export default function UploadPhoto() {
 
         // console.log(prediction[highestPrediction].className)
 
-        if (prediction[highestPrediction].probability > .85) {
+        if (prediction[highestPrediction].probability > .85 && prediction[highestPrediction].className !== "human") {
             predictionBox.innerHTML = prediction[highestPrediction].className
         } else {
             predictionBox.innerHTML = "Nothing in frame!"

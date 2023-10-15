@@ -10,11 +10,13 @@ export default function UserPanel() {
     return (
         <>
             <div className="side-panel-container">
-                <Link to="/" id="link">
-                    <img className="menu" src="/assets/menu.png"></img>
-                </Link>
-                <UserProfile/>
-                <div className="error-panel" hidden></div>
+                <div className="side-panel-info">
+                    <Link to="/" id="link">
+                        <img className="menu" src="/assets/menu.png"></img>
+                    </Link>
+                    <UserProfile/>
+                    <div className="error-panel" hidden ></div>
+                </div>
                 <UploadPhoto/>
             </div>
 

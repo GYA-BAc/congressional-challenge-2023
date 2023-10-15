@@ -3,8 +3,7 @@ import { Configuration, OpenAIApi } from "openai"
 
 import "./style.css"
 
-const API_KEY = "GETYOUROWNKEY"
-
+const API_KEY = process.env.REACT_APP_API_KEY
 
 export default function UploadDialogue() {
 
@@ -46,14 +45,26 @@ export default function UploadDialogue() {
     // }, [])
 
     async function getInfo() {
+        if (shareable) {
+            return
+        }
+
+
         const dialogueBox = document.querySelector('.upload-dialogue-container');
         const webcamContainer = document.getElementById("webcam-container")
-        webcamContainer.setAttribute("freeze", "true")
         
         const predictionBox = document.querySelector('.prediction')
         const suggestionBox = document.querySelector('.ai-suggestion')
         try {
+        // injection attack possible here
         const category = predictionBox.innerHTML
+
+        if (category === "Nothing in frame!") {
+            return
+        }
+
+        webcamContainer.setAttribute("freeze", "true")
+        
         
         const p = "What is 1 way to recycle " + category + " waste?"
         const result = await handleSubmit(p)
@@ -99,7 +110,7 @@ export default function UploadDialogue() {
         const result = await handleSubmit(p)
 
         // console.log(apiResponse)
-        console.log(result)
+        // console.log(result)
         if (result.slice(0, 3) === "Yes") {
             errorBox.removeAttribute("hidden")
             errorBox.innerHTML = "Sorry, that is not an appropriate comment"
@@ -123,18 +134,17 @@ export default function UploadDialogue() {
 
                 <div className="get-data">
                     <div id="webcam-container"></div>
+                    <div className="prediction"></div>
+
                     <div id="manual-upload">
-                        {/*Problem: form is still accessible while hidden*/}
-                        <input type="file" id="myFile" name="filename"/>
-                        <button type="submit" onClick={getInfo}>Submit Photo</button>
+                        <button type="submit" className="submit-button" onClick={getInfo}>Submit Photo</button>
                     </div>
                     <div className="spacer"></div>
                 </div>
 
                 <div className="info">
-                    <div className="prediction"></div>
                     <div className="ai-suggestion"></div>
-                    <textarea className="comment" rows="4" cols="50"/>
+                    <textarea className="comment" rows="4" cols="50" placeholder="Add Comment"/>
 
                 </div>
             </div>
@@ -142,6 +152,7 @@ export default function UploadDialogue() {
 
             <div className="options">
                 <img className="share" onClick={share} src="/assets/share.png"/>
+
                 <img className="cancel" onClick={cancel} src="/assets/cancel.png"/>
             </div>
         </div>
