@@ -45,7 +45,7 @@ export default function Gallery() {
                     <img className="picture" src="/assets/AL.png"/>
                   </div>
                   <p className="title">Alan Ji - Lead Developer</p>
-                  <p className="subtitle">add links here</p>
+                  <p className="subtitle">GeeWhyAlan@outlook.com</p>
                 </div>
 
                 <div className="sample-card">
