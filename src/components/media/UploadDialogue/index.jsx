@@ -5,7 +5,7 @@ import "./style.css"
 
 const API_KEY = process.env.REACT_APP_API_KEY
 
-export default function UploadDialogue() {
+export default function UploadDialogue(postFunction) {
 
     const [shareable, setShareable] = useState(false)
 
@@ -93,6 +93,10 @@ export default function UploadDialogue() {
         cleanup()
     }
 
+
+    
+
+
     async function share() {
         const commentBox = document.querySelector(".comment")
         const errorBox = document.querySelector(".error-panel")
@@ -117,8 +121,9 @@ export default function UploadDialogue() {
             cancel()
             return
         }
+        postFunction.postFunction(commentBox.value);
 
-        cleanup()
+        cancel()
     }
 
     function cleanup() {
