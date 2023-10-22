@@ -3,9 +3,15 @@ import React, {} from 'react'
 function Post(message) {
 
     return (
-      <div>
-          <p><b>{message.message.user}</b> on {message.message.id}: <br/> 
-              {message.message.content}</p>
+      <div className='post'>
+          <p className='post-user'><b>{message.message.user}</b> on {message.message.id}: </p>
+          
+          <hr></hr>
+
+          <p className='post-content'>{message.message.content}</p>
+          <br></br>
+
+          <img className='post-image' src={message.message.image}></img>
       </div>
     )
   }

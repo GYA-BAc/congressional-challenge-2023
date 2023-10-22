@@ -14,15 +14,27 @@ export default function Featured() {
 
             <div className="box" data-scroll>
                 <div className="featured-content">
-                    <p>"It's awesome!" - Anonymous Judge</p>
+                    <p>"It's awesome!" - Hackathon Judge</p>
                 </div>
             </div>
 
+            <div className="box" data-scroll>
+                <div className="featured-content">
+                    <img src="assets/Winners.png"></img>
+                    <p>1st Place Winner of the 2023 Code Crew Hackathon</p>
+                </div>
+            </div>
 
             <div className="box" data-scroll>
                 <div className="featured-content">
                     <img src="assets/bottle.png"></img>
                     <p>Less than 91% of recyclable materals are handled properly.</p>
+                </div>
+            </div>
+
+            <div className="box" data-scroll>
+                <div className="featured-content">
+                    <p>Using AI to change the world!</p>
                 </div>
             </div>
 
@@ -45,6 +57,8 @@ export default function Featured() {
                     <p>"If we can convince even a fraction of people to recycle more, think about how much impact that could have."</p>
                 </div>
             </div>
+
+            
                 
 
         </div>

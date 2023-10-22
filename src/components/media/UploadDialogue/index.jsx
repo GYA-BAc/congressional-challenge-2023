@@ -99,6 +99,7 @@ export default function UploadDialogue(postFunction) {
 
     async function share() {
         const commentBox = document.querySelector(".comment")
+        const webcamContainer = document.getElementById("webcam-container")
         const errorBox = document.querySelector(".error-panel")
         
         if (!shareable) {
@@ -121,7 +122,7 @@ export default function UploadDialogue(postFunction) {
             cancel()
             return
         }
-        postFunction.postFunction(commentBox.value);
+        postFunction.postFunction(commentBox.value, webcamContainer.children[0].toDataURL());
 
         cancel()
     }

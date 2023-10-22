@@ -1,6 +1,6 @@
 .upload-dialogue-container {
     position: fixed;
-    background-color: #2225;
+    background-color: #999999;
     width: 75%;
     height: 80%;
     top: 10px;
@@ -12,7 +12,8 @@
     flex-direction: column;
     justify-content: left;
 
-    color: white
+    color: white;
+    z-index: 3;
 }
 .upload-dialogue-container[hidden] {
     opacity: 0;
@@ -109,7 +110,7 @@
 }
 
 .options *:hover {
-    background-color: #aaae;
+    background-color: rgba(227, 236, 125, 0.867);
 }
 
 

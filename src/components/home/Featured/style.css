@@ -68,3 +68,12 @@
     
 }
 
+.container .box:nth-child(3) {
+    grid-column: span 2;
+
+}
+
+.container .box:nth-child(3) img {
+    max-width: 100%;
+    border-radius: 15px;
+}

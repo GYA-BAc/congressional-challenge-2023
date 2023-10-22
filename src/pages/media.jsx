@@ -11,8 +11,12 @@ const Media = () => {
     const [posts, setPosts] =  useState([])
 
     useEffect(() => {
-        const storedMessages = JSON.parse(localStorage.getItem("posts"))
-        if (storedMessages) setPosts(storedMessages)
+        try {
+            const storedMessages = JSON.parse(localStorage.getItem("posts"))
+            if (!(storedMessages === undefined || storedMessages.length == 0)) setPosts(storedMessages)
+        } catch(e) {
+        }
+        
 
     }, [])
 
@@ -21,12 +25,16 @@ const Media = () => {
         localStorage.setItem("posts", JSON.stringify(posts))
     }, [posts])
 
-    function addMessage(message) {
+    function addMessage(message, image) {
         const content = message
+        const enc_image = image
+        
         if (content === '') return
+        if (enc_image === '') return
+
         setPosts(prevMessage => {
           const ID = new Date()
-          return [...prevMessage, { id: ID.toString(), content: content, user: "test" }]
+          return [...prevMessage, { id: ID.toString(), content: content, image: enc_image, user: "test" }]
         })
     }
 
@@ -37,7 +45,9 @@ const Media = () => {
         <div className="Media" id="main-container" data-scroll-container>
             <UserPanel/>
             <UploadDialogue postFunction={addMessage}/>
-            <Posts posts={posts}/>
+            <div className="post-container">
+                <Posts posts={posts}/>
+            </div>
         </div>
         </>
     );
