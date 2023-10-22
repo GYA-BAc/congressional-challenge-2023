@@ -96,9 +96,9 @@ export default function UploadPhoto() {
 
         for (let i=0; i < maxPredictions; i++) {
             if (prediction[i].probability > currentProbability) {
-                if (prediction[i].className === "human") {
-                    continue
-                }
+                // if (prediction[i].className === "human") {
+                //     continue
+                // }
                 highestPrediction = i
                 currentProbability = prediction[i].probability
             }
@@ -107,10 +107,6 @@ export default function UploadPhoto() {
         // console.log(prediction[highestPrediction].className)
 
         predictionBox.innerHTML = prediction[highestPrediction].className
-        // if (true) {
-        // } else {
-        //     predictionBox.innerHTML = "Nothing in frame!"
-        // } 
         
     }
 
