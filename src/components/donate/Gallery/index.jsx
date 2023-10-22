@@ -78,6 +78,10 @@ export default function DonationGallery() {
 
         // console.log(linkBox.value)
         // console.log(uploaded)
+        // window.location.reload()
+        const heading = document.querySelector(".heading")
+        heading.scrollIntoView({ behavior: 'smooth', block: 'center' })
+
 
     }
 
