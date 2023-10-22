@@ -20,7 +20,7 @@ function Post(message) {
 
 export default function Posts({posts}) {
     return (
-      posts.map(post => {
+      posts.slice(0).reverse().map(post => {
           return <Post message={post} key={post.id}/>
       })
     )

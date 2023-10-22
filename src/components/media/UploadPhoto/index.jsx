@@ -44,7 +44,12 @@ export default function UploadPhoto() {
         try {
             const flip = true; // whether to flip the webcam
             webcam = new tmImage.Webcam(200, 200, flip); // width, height, flip
-            await webcam.setup(); // request access to the webcam
+            let constraints = {
+                audio: false,
+                facingMode: "environment"
+            }
+
+            await webcam.setup(constraints); // request access to the webcam
             await webcam.play();
             window.requestAnimationFrame(loop);
             // append elements to the DOM

@@ -1,6 +1,8 @@
 .upload-dialogue-container {
     position: fixed;
-    background-color: #999999;
+    background-color: #2225;
+    backdrop-filter: blur(15px);
+
     width: 75%;
     height: 80%;
     top: 10px;
@@ -17,6 +19,7 @@
 }
 .upload-dialogue-container[hidden] {
     opacity: 0;
+    z-index: 1;
 }
 
 
