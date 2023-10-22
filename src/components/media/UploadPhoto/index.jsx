@@ -46,7 +46,9 @@ export default function UploadPhoto() {
             webcam = new tmImage.Webcam(200, 200, flip); // width, height, flip
             let constraints = {
                 audio: false,
-                facingMode: "environment"
+                video: {
+                    facingMode: "environment"
+                }
             }
 
             await webcam.setup(constraints); // request access to the webcam
@@ -94,6 +96,9 @@ export default function UploadPhoto() {
 
         for (let i=0; i < maxPredictions; i++) {
             if (prediction[i].probability > currentProbability) {
+                if (prediction[i].className === "human") {
+                    continue
+                }
                 highestPrediction = i
                 currentProbability = prediction[i].probability
             }
@@ -101,11 +106,11 @@ export default function UploadPhoto() {
 
         // console.log(prediction[highestPrediction].className)
 
-        if (prediction[highestPrediction].probability > .85 && prediction[highestPrediction].className !== "human") {
-            predictionBox.innerHTML = prediction[highestPrediction].className
-        } else {
-            predictionBox.innerHTML = "Nothing in frame!"
-        } 
+        predictionBox.innerHTML = prediction[highestPrediction].className
+        // if (true) {
+        // } else {
+        //     predictionBox.innerHTML = "Nothing in frame!"
+        // } 
         
     }
 

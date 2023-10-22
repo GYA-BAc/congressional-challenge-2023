@@ -24,6 +24,8 @@
     z-index: 2;
 }
 
+
+
 .post {
     background-color: #2225;
     border-radius: 15px;
@@ -39,4 +41,21 @@
 .post-image.resize {
     width:540px; /* you can use % */
     height: auto;
+}
+
+
+@media only screen and (max-width: 600px) {
+    .post-container {
+        position: fixed;
+        width: 65%;
+        top: 2%;
+        left: 25%;
+    
+        overflow: auto;
+        max-height: 100vh;
+    
+        display: flex;
+        flex-direction: column;
+        z-index: 2;
+    }
 }

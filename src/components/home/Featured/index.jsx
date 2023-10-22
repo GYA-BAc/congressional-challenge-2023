@@ -3,7 +3,7 @@ import React from "react"
 import "./style.css"
 
 export default function Featured() {
-    return <section className={"featured-section"} data-scroll-section>
+    return <section className={"featured-section"} >
         <div className="container">
 
             <div className="box" data-scroll>

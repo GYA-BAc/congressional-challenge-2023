@@ -11,13 +11,31 @@
     display: flex;
     flex-direction: column;
 }
+
+@media only screen and (max-width: 600px) {
+    .side-panel-container {
+        position: fixed;
+        background-color: #2225;
+        width: 30%;
+        height: 96%;
+        top: 2%;
+        left: 2%;
+    
+        border-radius: 15px;
+    
+        display: flex;
+        flex-direction: column;
+    }
+}
+
+
 .side-panel-container * {
     padding: 5%;
 }
 
 .side-panel-container img {
-    max-height: 100px;
-    max-width: 100px;
+    max-height: 10vh;
+    max-width: 10vw;
     margin-left: auto;
     margin-right: auto;
 }
