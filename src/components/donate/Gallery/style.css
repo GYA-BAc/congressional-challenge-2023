@@ -1,0 +1,214 @@
+*, *::before, *::after {
+    box-sizing: inherit;
+  }
+  
+
+  html {
+    box-sizing: border-box;
+    font-size: 100%;
+
+  }
+  
+  body {
+    margin: 0;
+    font-family: sans-serif;
+  }
+
+  .bumper {
+    text-align: center;
+    padding: 128px 16px;
+    background-color: #efefef;
+  }
+  
+  .container {
+    padding-top: 0;
+    position: relative;
+    width: 100%;
+    min-height: 100vh;
+  }
+  
+  .space-holder {
+    position: relative;
+    width: 100%;
+  }
+  
+  .sticky {
+    position: sticky;
+    top: 0;
+    height: 100vh;
+    width: 100vw;
+    overflow-x: hidden;
+  }
+  
+  .horizontal {
+    position: absolute;
+    height: 100%;
+    will-change: transform;
+    transition: transform 100ms;
+
+  }
+  
+  .cards {
+    position: relative;
+    height: 100%;
+    padding: 0 0 0 150px;
+    display: flex;
+    flex-flow: row nowrap;
+    justify-content: flex-start;
+    align-items: center;
+  }
+  
+  .donate-post {
+    position: relative;
+    height: 70vh;
+    width: 70vw;
+    margin-right: 75px;
+    flex-shrink: 0;
+    border-radius: 15px;
+    box-shadow: 5px 10px #888888;
+    border: 1px solid black;
+    transition: .3s;    
+    color: transparent;
+    align-items: center;
+  }
+
+  .donate-post:hover {
+    background-color: rgba(54, 54, 54, 0.6);
+    background-blend-mode: darken;
+  
+
+  }
+
+
+  .cards .donate-post:nth-child(1) {
+    background-image: url("~/public/assets/ucs.png");
+    background-size:100% 100%;
+    background-repeat: no-repeat;
+    background-position: 50% 50%;
+  }
+
+  .cards .donate-post:nth-child(2) {
+    background-image: url("~/public/assets/ndrc.png");
+    background-size:100% 100%;
+    background-repeat: no-repeat;
+    background-position: 50% 50%;
+  }
+
+  .cards .donate-post:nth-child(3) {
+    background-image: url("~/public/assets/ewg.png");
+    background-size:100% 100%;
+    background-repeat: no-repeat;
+    background-position: 50% 50%;
+  }
+
+  .cards .donate-post:nth-child(4) {
+    background-image: url("~/public/assets/greenpeace.png");
+    background-size:100% 100%;
+    background-repeat: no-repeat;
+    background-position: 50% 50%;
+  }
+
+  .demo-donate-post {
+
+    position: relative;
+    height: 70vh;
+    width: 70vw;
+    flex-shrink: 0;
+    border-radius: 15px;
+    box-shadow: 5px 10px #888888;
+    border: 1px solid black;
+    transition: .3s;    
+    color: transparent;
+    align-items: center;
+    margin-top: 50px;
+    margin-left: 50px;
+
+
+    background-image: url("~/public/assets/donate-placeholder.png");
+    background-size:100% 100%;
+    background-repeat: no-repeat;
+    background-position: 50% 50%;
+  }
+
+  .demo-donate-container {
+    position: relative;
+    height: 100%;
+    padding: 0 0 150px 50px;
+    align-items: center;
+    font-size: 2vw;
+  }
+
+  .demo-donate-post:hover, .demo-donate-post:focus {
+    background-color: rgba(66, 66, 66, 0.532);
+    background-blend-mode: darken;
+    cursor: pointer;
+  }
+
+  .heading {
+    text-transform: uppercase;
+    font-weight: 600;
+    letter-spacing: 1px;
+    font-size: 4vw;
+    font-style: italic;
+    -webkit-text-stroke: 3px #000000;
+    color: #0000;
+  }
+
+  .create-container {
+    position: relative;
+    padding-top: 2%;
+    padding-bottom: 2%;
+    width: 100%;
+    display: flex;
+    justify-content:space-between;
+    padding-left: 15%;
+    padding-right: 15%;
+    align-items: center;
+    background-color: #8888887c;
+
+    background: linear-gradient(90deg, #ebf2af, transparent) #5d5d5d88;
+    transition: background-color 1s;
+
+
+
+  }
+
+  .hook {
+    color: rgb(55, 0, 69);
+    font-size: 2vw;
+    transition-duration: .3s;
+  }
+
+  .prompt {
+    color: transparent;
+    font-size: 3vw;
+    transition-duration: .5s;
+    z-index: 2;
+  }
+
+  .create-container:hover, .create-container:focus {
+    background-color: #8390d0;
+    color: #fff;
+    cursor: pointer;
+  }
+
+.create-title {
+    width: 100%;
+    text-align: center;
+    padding-top: 20vh;
+}
+
+.add-link {
+    margin: 50px;
+    color: black;
+}
+
+.submission-container {
+    position: relative;
+    height: 100%;
+    padding: 0 0 0 150px;
+    display: flex;
+    flex-flow: row nowrap;
+    justify-content: flex-start;
+    align-items: center;
+}

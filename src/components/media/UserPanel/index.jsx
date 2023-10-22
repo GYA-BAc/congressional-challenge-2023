@@ -17,7 +17,13 @@ export default function UserPanel() {
                     <UserProfile/>
                     <div className="error-panel" hidden ></div>
                 </div>
-                <UploadPhoto/>
+
+                <div className="side-panel-options">
+                    <UploadPhoto/>
+                    <Link to="/donate" id="link">
+                        <img className="donate-button" src="/assets/fundraise.png"></img>
+                    </Link>
+                </div>
             </div>
 
         </>

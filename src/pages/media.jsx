@@ -1,4 +1,4 @@
-import { React, useEffect, useState, useRef } from "react";
+import { React, useEffect, useState} from "react";
 import UserPanel from "../components/media/UserPanel";
 import UploadDialogue from "../components/media/UploadDialogue";
 import Posts from "../components/media/Posts/posts";

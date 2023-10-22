@@ -8,8 +8,19 @@
 
     border-radius: 15px;
 
+}
+
+.side-panel-options {
+    position: inherit;
+    bottom: 5%;
+    background-color: #2225;
+
+    width: 20%;
+
     display: flex;
-    flex-direction: column;
+    flex-direction: row;
+    justify-content: space-around;
+
 }
 
 @media only screen and (max-width: 600px) {
@@ -23,21 +34,30 @@
     
         border-radius: 15px;
     
+    }
+
+    .side-panel-options {
+        position: inherit;
+        bottom: 5%;
+        background-color: #2225;
+    
+        width: 30%;
+    
         display: flex;
-        flex-direction: column;
+        flex-direction: row;
+        justify-content: space-around;
+    
     }
 }
 
 
-.side-panel-container * {
+.side-panel-info * {
     padding: 5%;
 }
 
 .side-panel-container img {
     max-height: 10vh;
     max-width: 10vw;
-    margin-left: auto;
-    margin-right: auto;
 }
 
 .error-panel {
@@ -48,4 +68,13 @@
 
 [hidden] {
     opacity: 0;
+}
+
+.donate-button {
+    transition: .3s;    
+    border-radius: 10px;
+}
+
+.donate-button:hover {
+    background-color: rgba(227, 236, 125, 0.867);
 }

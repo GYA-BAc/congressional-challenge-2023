@@ -22,7 +22,7 @@ export default function Gallery() {
       const sticky = document.querySelector('.sticky');
 
       window.addEventListener('scroll', () => {
-        horizontal.style.transform = `translateX(-${sticky.offsetTop}px)`;
+        horizontal.style.transform = `translateX(-${Math.round(sticky.offsetTop/horizontal.scrollHeight)/4*(horizontal.scrollWidth-150)}px)`;
       });
 
       window.addEventListener('resize', () => {
