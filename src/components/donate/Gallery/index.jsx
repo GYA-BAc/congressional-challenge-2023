@@ -146,7 +146,7 @@ export default function DonationGallery() {
         <hr></hr>
 
         <div className="submission-container">
-            <textarea className="add-link" rows="4" cols="50" placeholder="Add Link"/>
+            <textarea className="add-link" rows="4" cols="50" placeholder="Add a Link to a Donation Page"/>
             <button type="submit" onClick={submit}>Submit</button>
 
         </div>
