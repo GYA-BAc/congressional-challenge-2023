@@ -34,12 +34,6 @@ export default function Featured() {
 
             <div className="box" data-scroll>
                 <div className="featured-content">
-                    <p>Using AI to change the world!</p>
-                </div>
-            </div>
-
-            <div className="box" data-scroll>
-                <div className="featured-content">
                     <img src="assets/Recycle.png"></img>
                     <p>It is estimated that up to 8 million metric tons of plastic reach the planet’s oceans each year.</p>
                 </div>
