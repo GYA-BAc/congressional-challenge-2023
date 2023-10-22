@@ -48,7 +48,7 @@ export default function Featured() {
             <div className="box" data-scroll>
                 <div className="featured-content">
                     <img src="assets/turtle.png"></img>
-                    <p>A turtle has a 22% of dying if it eats just one piece of plastic.</p>
+                    <p>A turtle has a 22% chance of dying if it eats just one piece of plastic.</p>
                 </div>
             </div>
 
