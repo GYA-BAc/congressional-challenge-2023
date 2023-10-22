@@ -1,10 +1,14 @@
 import React, {} from 'react'
 
 function Post(message) {
+    // console.log(message.message.userImage)
 
     return (
       <div className='post'>
-          <p className='post-user'><b>{message.message.user}</b> on {message.message.id}: </p>
+          <div className='post-info'>
+            <img className='user-image' src={message.message.userImage}></img>
+            <p className='post-user'><b>{message.message.user}</b> on {message.message.id}: </p>
+          </div>
           
           <hr></hr>
 
