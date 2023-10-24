@@ -52,7 +52,7 @@ export default function Gallery() {
                   <div className="picture-container">
                     <img className="picture" src="/assets/KN1.jpg"/>
                   </div>
-                  <p className="title">Kennedi Stewart - Team Lead</p>
+                  <p className="title">Kennedi Stewart - Team Lead/Lead AI-Specialist</p>
                   <p className="subtitle">Kvmarie12@gmail.com</p>
                 </div>
 
@@ -60,7 +60,7 @@ export default function Gallery() {
                   <div className="picture-container">
                     <img className="picture" src="/assets/KN2.jpeg"/>
                   </div>
-                  <p className="title">Kennedy Jefferson - Artist/AI-trainer</p>
+                  <p className="title">Kennedy Jefferson - Designer/AI-Assistant</p>
                   <p className="subtitle">kennedysjefferson@outlook.com</p>
                 </div>
 
