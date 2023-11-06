@@ -20,7 +20,7 @@ If you want to try it on your own machine:
 3. Insert the following line: 
 <pre>
 REACT_APP_API_KEY="{Your Token Goes Here}"
-</pre>pre>
+</pre>
 4. Run:
 <pre>
 npm start
