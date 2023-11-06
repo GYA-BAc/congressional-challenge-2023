@@ -19,7 +19,7 @@ If you want to try it on your own machine:
 2. Create a file named ".env" at the base of the repository
 3. Insert the following line: 
 <pre>
-REACT_APP_API_KEY="{Your Token Goes Here}"
+REACT_APP_API_KEY="Your Token Goes Here"
 </pre>
 4. Run:
 <pre>
