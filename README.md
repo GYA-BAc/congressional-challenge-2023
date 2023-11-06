@@ -1,10 +1,10 @@
-Submission:
+# Submission Video:
 
 [![Demo Video](Demo.gif)](https://youtu.be/S2yG2TKoTHQ)
 
 
 
-## Contributors
+# Contributors
 ### Alan - Lead Developer
 ![image](https://github.com/GYA-BAc/hackathon2023/assets/97851399/4c1273af-2691-4072-97f2-b0b0e78321ac)
 
