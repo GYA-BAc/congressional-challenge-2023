@@ -1,5 +1,5 @@
 # EcoTrace
-This is an App that scans recycling and tells you how to properly dispose of it. It also promotes engagement by offering a social media function, as well as fundraising.
+Out App can scan recycling, using image recognition to tell you how to properly dispose of it. It also promotes environmental causes by offering a social media function, as well as fundraising.
 ## Submission Video:
 
 [![Demo Video](Demo.gif)](https://youtu.be/S2yG2TKoTHQ)
