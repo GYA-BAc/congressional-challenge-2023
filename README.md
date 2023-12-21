@@ -1,8 +1,8 @@
-# TN-9 Congressional App Challenge Winner
+# Ecotrace
 
 ![image](https://github.com/GYA-BAc/congressional-challenge-2023/assets/97851399/798d0813-6686-444d-ad2d-933e15ae8b39)
 
-Our App can scan recycling, using image recognition to tell you how to properly dispose of it. It also promotes environmental causes by offering a social media function, as well as fundraising.
+An App built to scan recycling and use image recognition to tell you how to properly dispose of it, while also provided networking and fundraising to promote environmental causes.
 ## Submission Video:
 
 [![Demo Video](Demo.gif)](https://youtu.be/S2yG2TKoTHQ)
