@@ -1,4 +1,5 @@
-# EcoTrace
+![image](https://github.com/GYA-BAc/congressional-challenge-2023/assets/97851399/798d0813-6686-444d-ad2d-933e15ae8b39)
+
 Out App can scan recycling, using image recognition to tell you how to properly dispose of it. It also promotes environmental causes by offering a social media function, as well as fundraising.
 ## Submission Video:
 
