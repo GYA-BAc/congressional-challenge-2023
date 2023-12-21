@@ -16,7 +16,7 @@ The app offers several AI features:
  - ChatGPT is also used to moderate the social media function
 
 ## Try It
-Unfortunately, since the app requires a ChatGPT API token (and this is a personal project), we do not have a public release of the app.
+Unfortunately, since the app requires a ChatGPT API token, there currently is no public release of the app.
 If you want to try it on your own machine:
 1. Clone the repository
 2. Create a file named ".env" at the base of the repository
