@@ -1,10 +1,8 @@
-# Ecotrace
-
 ![image](https://github.com/GYA-BAc/congressional-challenge-2023/assets/97851399/798d0813-6686-444d-ad2d-933e15ae8b39)
 
-## An An Environmentally-Focused Social Media Platform.
-
+# An Environmentally-Focused Social Media Platform.
 Scan your recycling to learn how to properly dispose of it! Then post pictures of your recycling to encourage others to do the same.
+
 ## Submission Video:
 
 [![Demo Video](Demo.gif)](https://youtu.be/S2yG2TKoTHQ)
