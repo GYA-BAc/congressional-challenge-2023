@@ -1,4 +1,7 @@
-![image](https://github.com/GYA-BAc/congressional-challenge-2023/assets/97851399/798d0813-6686-444d-ad2d-933e15ae8b39)
+
+<p align="center">
+  <img src="https://github.com/GYA-BAc/congressional-challenge-2023/assets/97851399/798d0813-6686-444d-ad2d-933e15ae8b39" />
+</p>
 
 # An Environmentally-Focused Social Media Platform.
 Scan your recycling to learn how to properly dispose of it! Then post pictures of your recycling to encourage others to do the same.
