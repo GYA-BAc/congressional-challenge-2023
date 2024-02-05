@@ -33,7 +33,7 @@ npm start
 </pre>
 
 # Contributors
-### Alan - Lead Developer
+### Alan - Lead Developer/Lead Graphic Designer
 ![image](https://github.com/GYA-BAc/hackathon2023/assets/97851399/4c1273af-2691-4072-97f2-b0b0e78321ac)
 
 ### Kennedi - Team Lead/Lead AI-Specialist
