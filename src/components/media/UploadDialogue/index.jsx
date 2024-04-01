@@ -3,42 +3,69 @@ import { Configuration, OpenAIApi } from "openai"
 
 import "./style.css"
 
-const API_KEY = process.env.REACT_APP_API_KEY
+// const API_KEY = process.env.REACT_APP_API_KEY
 
 export default function UploadDialogue(postFunction) {
 
     const [shareable, setShareable] = useState(false)
 
-    let configuration = new Configuration({ apiKey: API_KEY,});
+    // let configuration = new Configuration({ apiKey: API_KEY,});
 
     // Delete it
-    delete configuration.baseOptions.headers['User-Agent'];
+    // delete configuration.baseOptions.headers['User-Agent'];
 
     
-    const openai = new OpenAIApi(configuration);
+    // const openai = new OpenAIApi(configuration);
 
-    const handleSubmit = async (prompt) => {
+    // const handleSubmit = async (prompt) => {
         
-      try {
-        //console.log("Prompt: " + prompt)
-        const result = await openai.createChatCompletion({
-          model: "gpt-3.5-turbo",
-        //   model: "text-davinci-003",
-          messages: [{ role: "user", content: prompt }],
-        //   prompt: prompt,
-        //   temperature: 0.3,
-        //   max_tokens: 500,
-        });
-        //console.log("response", result.data.choices[0].text);
-        // setApiResponse(result.data.choices[0].text);
-        //console.log("result: "+ result.data.choices[0].message.content)
-        return result.data.choices[0].message.content  
-      } catch (e) {
-        console.log(e);
-        return "Something went wrong, try again..."
-      }
+    //   try {
+    //     //console.log("Prompt: " + prompt)
+    //     const result = await openai.createChatCompletion({
+    //       model: "gpt-3.5-turbo",
+    //     //   model: "text-davinci-003",
+    //       messages: [{ role: "user", content: prompt }],
+    //     //   prompt: prompt,
+    //     //   temperature: 0.3,
+    //     //   max_tokens: 500,
+    //     });
+    //     //console.log("response", result.data.choices[0].text);
+    //     // setApiResponse(result.data.choices[0].text);
+    //     //console.log("result: "+ result.data.choices[0].message.content)
+    //     return result.data.choices[0].message.content  
+    //   } catch (e) {
+    //     console.log(e);
+    //     return "Something went wrong, try again..."
+    //   }
 
-    };
+    // };
+
+    const handleSubmit = (category) => {
+        console.log(category)
+
+        switch (category) {
+            case "plastic":
+                return "\
+                In order to recycle plastic, you can either put your recycling in the appropriate bin \
+                (usually labelled), or you can directly bring your recycling \
+                to a local recycling plant. \
+                Make sure to dispose of any plastics in the proper place \
+                to ensure that reusable plastics are recycled. \ "
+            case "cardboard":
+                return "\
+                In order to recycle cardboard, please first ensure that the \
+                cardboard you are trying to recycle is clean and dry.\
+                Make sure to flatten any cardboard boxes by folding them to save space.\
+                Most curbside recycling programs accept cardboard boxes, but\
+                you can also drop off cardboard recycling at recycling plants, or\
+                even paper mills (if your cardboard is of high enough quality)\
+                "
+            default:
+                return "In order to recycle any waste, make sure to consult with local\
+                organizations and agencies to find out what types of materials are accepted.\
+                Common recyclable materals are metals, plastics, papers, and glasses. "
+        }
+    }
 
     // useEffect(() => {
     //     handleSubmit("hi")
@@ -65,9 +92,7 @@ export default function UploadDialogue(postFunction) {
 
         webcamContainer.setAttribute("freeze", "true")
         
-        
-        const p = "What is 1 way to recycle " + category + " waste?"
-        const result = await handleSubmit(p)
+        const result = handleSubmit(category)
 
         // console.log(result)
 
@@ -110,18 +135,18 @@ export default function UploadDialogue(postFunction) {
             return
         }
 
-        const p = "Is the following message hateful, hurtful, or misleading? \""
-            + commentBox.value + "\" Answer with \"Yes\" or \"No\""
-        const result = await handleSubmit(p)
+        // const p = "Is the following message hateful, hurtful, or misleading? \""
+        //     + commentBox.value + "\" Answer with \"Yes\" or \"No\""
+        // const result = handleSubmit(p)
 
         // console.log(apiResponse)
         // console.log(result)
-        if (result.slice(0, 3) === "Yes") {
-            errorBox.removeAttribute("hidden")
-            errorBox.innerHTML = "Sorry, that is not an appropriate comment"
-            cancel()
-            return
-        }
+        // if (result.slice(0, 3) === "Yes") {
+        //     errorBox.removeAttribute("hidden")
+        //     errorBox.innerHTML = "Sorry, that is not an appropriate comment"
+        //     cancel()
+        //     return
+        // }
         postFunction.postFunction(commentBox.value, webcamContainer.children[0].toDataURL());
 
         cancel()
