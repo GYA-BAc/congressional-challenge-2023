@@ -9,7 +9,28 @@ const Login = () => {
     const navigate = useNavigate()
 
     const correctLogin = () => {
-        navigate("/media")
+        fetchWithTimeout(`${process.env.EXPO_PUBLIC_API_URL}/auth/fetchUserData`).then(
+            (res) => {
+      
+              if (!res.ok) {
+                // TODO: add bad case where server fails
+                console.log(res.status)
+                alert("Internal server error, please try again later")
+              }
+              return res.json()
+            }
+        ).then(
+            (data) => {
+                // console.log(AsyncStorage) 
+                localStorage.setItem('currentUserID', data.content.id.toString())
+                navigate("/media")
+            }
+        ).catch(
+            () => {
+              alert("Failed to fetch user data. Please try logging in again")
+            }
+        )
+        
     }
 
     const incorrectLogin = () => {
