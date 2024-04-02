@@ -45,27 +45,24 @@ const Media = () => {
                     }
                 ).then(
                     (data) => {
-                        
+                        if (storedMessages.latest === data.id) {
+                            setPosts(storedMessages)
+                            return
+                        }
                     }
                 ).catch(
                     (e) => {
                         console.log(e)
                     }
                 )
-
-                
-                
-                setPosts(storedMessages)
-                return
             }
         } catch(e) {
         }
 
-
         fetchWithTimeout(
             `${process.env.EXPO_PUBLIC_API_URL}/groups/fetchPostRange/${DEMOGROUP}?`
             + new URLSearchParams({
-                
+                // start_id: 
             })
         ).then(
             (res) => {
