@@ -1,0 +1,65 @@
+.Login {
+    padding: 0 5svw;
+    background-image: linear-gradient(#ebf2af, #a0ffe2);
+    height: 100vh;
+    width: 100%;
+    display: flex;
+    flex-grow: 1;
+    flex-direction: column;
+    align-items: center;
+}
+  
+  #login-container {
+    display: flex;
+    flex-grow: 1;
+    width: 80%;
+    max-width: 350px;
+    margin: 25vh;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+  }
+
+  #login-title {
+    color: black;
+  }
+
+  #input-container {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    
+    input {
+        margin-top: 5vh;
+        height: 5vh;
+        border-radius: 5px;
+    }
+  }
+
+  #submit-container {
+    display: flex;
+    flex-direction: row;
+    width: 100%;
+    justify-content: space-between;
+
+    button {
+        width: 45%;
+        margin-top: 5vh;
+        height: 5vh;
+        border-radius: 5px;
+        background-color: white;
+        transition: 0.3s;
+    }
+
+    button:hover {
+        background-color: rgb(249, 255, 198);
+    }
+  } 
+
+.Login img {
+    position: absolute;
+    left: 0;
+    max-height: 10vh;
+    max-width: 10vw;
+}
+  
