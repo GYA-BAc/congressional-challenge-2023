@@ -35,13 +35,14 @@
 }
 
 .post-image {
+    width: 50%; 
     border-radius: 10px;
 }
 
-.post-image.resize {
-    width:540px; /* you can use % */
+/* .post-image.resize {
+    width:100vh; 
     height: auto;
-}
+} */
 
 .user-image {
     border-radius: 100%;
