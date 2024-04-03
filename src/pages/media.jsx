@@ -3,18 +3,28 @@ import UserPanel from "../components/media/UserPanel";
 import UploadDialogue from "../components/media/UploadDialogue";
 import Posts from "../components/media/Posts/posts";
 import { useNavigate } from "react-router-dom";
-import { fetchWithTimeout } from "../Utils";
+import { fetchWithTimeout, asyncFetchPosts } from "../Utils";
 
 import "./media.css"
 
 
 const DEMOGROUP = 1
+const POSTQUANTITY = 5
 
 const Media = () => {
     const navigate = useNavigate()
 
-    const [posts, setPosts] =  useState([])
+    // const [state, setState] = useState({
+    //     id: null,
+    //     posts: [],
+    //     latest: null,
+    //     oldest: null,
+    // })
 
+    const [groupID, setGroupID] = useState(groupID)
+    const [posts, setPosts] = useState([])
+    const [latestPostID, setLatestPostID] = useState(null)
+    const [oldestPostID, setOldestPostID] = useState(null)
 
     useEffect(() => {
         if (localStorage.getItem("currentUserID") === null) {
@@ -24,45 +34,48 @@ const Media = () => {
     }, [])    
 
     useEffect(() => {
-        var storedMessages
 
-        try {
-            storedMessages = JSON.parse(localStorage.getItem(`Group${DEMOGROUP}`))
-            if (!(storedMessages === undefined || storedMessages.length == 0)) {
-                // check to make sure is up to date
-                
-                fetchWithTimeout(
-                    `${process.env.EXPO_PUBLIC_API_URL}/groups/fetchLatestPostID/${DEMOGROUP}`
-                ).then(
-                    (res) => {
-                        if (!res.ok) {
-                            // TODO: add bad case where server fails
-                            // probably where fails to fetch due to incorrect session cookie
-                            console.log(res.status)
-                            throw "ServerError"
-                        }
-                        return res.json()
+        var localState = JSON.parse(localStorage.getItem(`Group${groupID}`))
+
+        if (!(localState === undefined || localState.length == 0)) {
+            // check to make sure is up to date
+            
+            fetchWithTimeout(
+                `${process.env.EXPO_PUBLIC_API_URL}/groups/fetchLatestPostID/${groupID}`
+            ).then(
+                (res) => {
+                    if (!res.ok) {
+                        // TODO: add bad case where server fails
+                        // probably where fails to fetch due to incorrect session cookie
+                        console.log(res.status)
+                        throw "ServerError"
                     }
-                ).then(
-                    (data) => {
-                        if (storedMessages.latest === data.id) {
-                            setPosts(storedMessages)
-                            return
-                        }
+                    return res.json()
+                }
+            ).then(
+                (data) => {
+                    setLatestPostID(data.id)
+                    if (localState.latestPostID === latestPostID) {
+                        setPosts(localState.posts)
+                        setOldestPostID(localState.oldestPostID)
+                        return
                     }
-                ).catch(
-                    (e) => {
-                        console.log(e)
-                    }
-                )
-            }
-        } catch(e) {
+                }
+            ).catch(
+                (e) => {
+                    console.log(e)
+                }
+            )
         }
 
+        // where localstate either doesn't exist or is out of date
+        // overwrite localstorage
+
         fetchWithTimeout(
-            `${process.env.EXPO_PUBLIC_API_URL}/groups/fetchPostRange/${DEMOGROUP}?`
+            `${process.env.EXPO_PUBLIC_API_URL}/groups/fetchPostRange/${groupID}?`
             + new URLSearchParams({
-                // start_id: 
+                start_id: latestPostID,
+                requested_posts: POSTQUANTITY
             })
         ).then(
             (res) => {
@@ -75,7 +88,12 @@ const Media = () => {
             }
         ).then(
             (data) => {
-
+                requestedPostIDs = data.map((item) => {return item.id})
+                asyncFetchPosts(requestedPostIDs).then(
+                    (posts) => {
+                        setPosts(posts)
+                    }
+                )
             }
         ).catch(
             (e) => {
@@ -88,7 +106,7 @@ const Media = () => {
 
     
     useEffect(() => {
-        localStorage.setItem(`Group${DEMOGROUP}`, JSON.stringify(posts))
+        localStorage.setItem(`Group${groupID}`, JSON.stringify(posts))
     }, [posts])
 
     function addMessage(message, image) {

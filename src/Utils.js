@@ -13,3 +13,16 @@ export async function fetchWithTimeout(resource, options = {}) {
   
     return response;
 }
+
+
+export async function asyncFetchPosts(posts) {
+  
+  ret = await Promise.all(
+      posts.map(async (id) => {
+        return await fetch(`${process.env.EXPO_PUBLIC_API_URL}/posts/fetch/${id}`)
+      })
+  )
+
+  return ret
+
+}
