@@ -109,17 +109,45 @@ const Media = () => {
         localStorage.setItem(`Group${groupID}`, JSON.stringify(posts))
     }, [posts])
 
-    function addMessage(message, image) {
-        const content = message
-        const enc_image = image
+    // function addMessage(message, image) {
+    //     const content = message
+    //     const enc_image = image
         
-        if (content === '') return
-        if (enc_image === '') return
+    //     if (content === '') return
+    //     if (enc_image === '') return
 
-        setPosts(prevMessage => {
-          const ID = new Date()
-          return [...prevMessage, { id: ID.toString(), content: content, image: enc_image, user: "test", userImage: "assets/pfp.png" }]
-        })
+    //     console.log(posts)
+
+    //     setPosts(prevMessage => {
+    //       const ID = new Date()
+    //       return [...prevMessage, { id: ID.toString(), content: content, image: enc_image, user: "test", userImage: "assets/pfp.png" }]
+    //     })
+    // }
+
+    const addMessage = (message) => {
+
+        fetchWithTimeout(
+            `${process.env.REACT_APP_BACKEND_API}/posts/create`,{
+                body: {
+                    body: message.body,
+                    image: message.image,
+                    group_id: DEMOGROUP
+                }
+            } 
+        ).then(
+            (res) => {
+                if (!res.ok) {
+                    // TODO: add bad case where server fails
+                    console.log(res.status)
+                    throw "ServerError"
+                  }
+            }   
+        ).catch(
+            (e) => {
+                console.log(e)
+                alert("Could not send post.")
+            }
+        )
     }
 
 
