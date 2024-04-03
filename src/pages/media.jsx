@@ -6,6 +6,7 @@ import { useNavigate } from "react-router-dom";
 import { fetchWithTimeout, asyncFetchPosts } from "../Utils";
 
 import "./media.css"
+import { setSelectionRange } from "@testing-library/user-event/dist/utils";
 
 
 const DEMOGROUP = 1
@@ -21,7 +22,7 @@ const Media = () => {
     //     oldest: null,
     // })
 
-    const [groupID, setGroupID] = useState(groupID)
+    const [groupID, setGroupID] = useState(DEMOGROUP)
     const [posts, setPosts] = useState([])
     const [latestPostID, setLatestPostID] = useState(null)
     const [oldestPostID, setOldestPostID] = useState(null)
@@ -36,12 +37,13 @@ const Media = () => {
     useEffect(() => {
 
         var localState = JSON.parse(localStorage.getItem(`Group${groupID}`))
+        let latest = 3
 
-        if (!(localState === undefined || localState.length == 0)) {
+        if (!(localState === null)) {
             // check to make sure is up to date
             
             fetchWithTimeout(
-                `${process.env.EXPO_PUBLIC_API_URL}/groups/fetchLatestPostID/${groupID}`
+                `${process.env.REACT_APP_BACKEND_API}/groups/fetchLatestPostID/${groupID}`
             ).then(
                 (res) => {
                     if (!res.ok) {
@@ -54,6 +56,7 @@ const Media = () => {
                 }
             ).then(
                 (data) => {
+                    latest = data.id
                     setLatestPostID(data.id)
                     if (localState.latestPostID === latestPostID) {
                         setPosts(localState.posts)
@@ -72,9 +75,9 @@ const Media = () => {
         // overwrite localstorage
 
         fetchWithTimeout(
-            `${process.env.EXPO_PUBLIC_API_URL}/groups/fetchPostRange/${groupID}?`
+            `${process.env.REACT_APP_BACKEND_API}/groups/fetchPostRange/${groupID}?`
             + new URLSearchParams({
-                start_id: latestPostID,
+                start_id: latest,
                 requested_posts: POSTQUANTITY
             })
         ).then(
@@ -87,13 +90,10 @@ const Media = () => {
                 return res.json()
             }
         ).then(
-            (data) => {
-                requestedPostIDs = data.map((item) => {return item.id})
-                asyncFetchPosts(requestedPostIDs).then(
-                    (posts) => {
-                        setPosts(posts)
-                    }
-                )
+            async (data) => {
+                let requestedPostIDs = data.map((item) => {return item.id})
+                // console.log(requestedPostIDs)
+                setPosts(await asyncFetchPosts(requestedPostIDs))
             }
         ).catch(
             (e) => {

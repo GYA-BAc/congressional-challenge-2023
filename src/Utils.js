@@ -7,7 +7,8 @@ export async function fetchWithTimeout(resource, options = {}) {
     const response = await fetch(resource, {
       ...options,
       signal: controller.signal,
-      mode: 'cors'
+      mode: 'cors',
+      credentials: 'include'
     });
     clearTimeout(id);
   
@@ -17,12 +18,16 @@ export async function fetchWithTimeout(resource, options = {}) {
 
 export async function asyncFetchPosts(posts) {
   
-  ret = await Promise.all(
+  return Promise.all(
       posts.map(async (id) => {
-        return await fetch(`${process.env.EXPO_PUBLIC_API_URL}/posts/fetch/${id}`)
+        let tmp = await fetch(
+          `${process.env.REACT_APP_BACKEND_API}/posts/fetch/${id}`,
+        )
+        return tmp.json()
       })
+  ).then(
+    (ret) => {
+      return ret
+    }
   )
-
-  return ret
-
 }

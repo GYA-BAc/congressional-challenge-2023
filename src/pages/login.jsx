@@ -9,14 +9,15 @@ const Login = () => {
     const navigate = useNavigate()
 
     const correctLogin = () => {
-        fetchWithTimeout(`${process.env.EXPO_PUBLIC_API_URL}/auth/fetchUserData`).then(
+        fetchWithTimeout(`${process.env.REACT_APP_BACKEND_API}/auth/fetchUserData`).then(
+            
             (res) => {
-      
               if (!res.ok) {
                 // TODO: add bad case where server fails
                 console.log(res.status)
                 alert("Internal server error, please try again later")
               }
+
               return res.json()
             }
         ).then(
@@ -26,7 +27,7 @@ const Login = () => {
                 navigate("/media")
             }
         ).catch(
-            () => {
+            (e) => {
               alert("Failed to fetch user data. Please try logging in again")
             }
         )
