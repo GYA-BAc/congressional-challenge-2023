@@ -69,7 +69,8 @@ const Media = () => {
 
         var localState = JSON.parse(localStorage.getItem(`Group${groupID}`))
 
-        var latest = null
+        var latest = latestPostID
+
         if (!(localState === null)) {
             // check to make sure is up to date
             
@@ -186,8 +187,29 @@ const Media = () => {
                     // TODO: add bad case where server fails
                     console.log(res.status)
                     throw "ServerError"
-                  }
+                }
+                reloadPosts()
             }   
+        ).then(
+            () => {
+                fetchWithTimeout(
+                    `${process.env.REACT_APP_BACKEND_API}/groups/fetchLatestPostID/${groupID}`
+                ).then(
+                    (res) => {
+                        if (!res.ok) {
+                            // TODO: add bad case where server fails
+                            // probably where fails to fetch due to incorrect session cookie
+                            console.log(res.status)
+                            throw "ServerError"
+                        }
+                        return res.json()
+                    }
+                ).then(
+                    (data) => {
+                        setLatestPostID(data.id)
+                    }
+                )
+            }
         ).catch(
             (e) => {
                 console.log(e)

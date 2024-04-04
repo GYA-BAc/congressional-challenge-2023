@@ -1,8 +1,7 @@
 import React, {} from 'react'
 
 function Post({post}) {
-    // console.log(message.message.userImage)
-
+    console.log(post.image)
     return (
       <div className='post'>
           <div className='post-info'>
@@ -15,7 +14,7 @@ function Post({post}) {
           <p className='post-content'>{post.body}</p>
           <br></br>
 
-          <img className='post-image' src={post.image}></img>
+          <img className='post-image' src={post.data_url}></img>
       </div>
     )
   }
@@ -23,9 +22,10 @@ function Post({post}) {
 
 
 export default function Posts({posts}) {
+    console.log(posts)
     return (
       posts.slice(0).reverse().map(post => {
-          return <Post message={post} key={post.id}/>
+          return <Post post={post} key={post.id}/>
       })
     )
   }
