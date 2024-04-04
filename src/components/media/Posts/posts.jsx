@@ -1,21 +1,21 @@
 import React, {} from 'react'
 
-function Post(message) {
+function Post({post}) {
     // console.log(message.message.userImage)
 
     return (
       <div className='post'>
           <div className='post-info'>
-            <img className='user-image' src={message.message.userImage}></img>
-            <p className='post-user'><b>{message.message.user}</b> on {message.message.id}: </p>
+            <img className='user-image' src={''}></img>
+            <p className='post-user'><b>{post.username}</b> on {post.created}: </p>
           </div>
           
           <hr></hr>
 
-          <p className='post-content'>{message.message.content}</p>
+          <p className='post-content'>{post.body}</p>
           <br></br>
 
-          <img className='post-image' src={message.message.image}></img>
+          <img className='post-image' src={post.image}></img>
       </div>
     )
   }

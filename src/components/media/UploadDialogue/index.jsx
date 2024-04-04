@@ -147,7 +147,13 @@ export default function UploadDialogue(postFunction) {
         //     cancel()
         //     return
         // }
-        postFunction.postFunction(commentBox.value, webcamContainer.children[0].toDataURL());
+        // postFunction.postFunction(commentBox.value, webcamContainer.children[0].toDataURL());
+        postFunction.postFunction(
+            {
+                body: commentBox.value,
+                image: webcamContainer.children[0].toDataURL()
+            }
+        );
 
         cancel()
     }

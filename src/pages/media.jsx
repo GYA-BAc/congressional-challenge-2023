@@ -27,6 +27,7 @@ const Media = () => {
     const [latestPostID, setLatestPostID] = useState(null)
     const [oldestPostID, setOldestPostID] = useState(null)
 
+
     useEffect(() => {
         if (localStorage.getItem("currentUserID") === null) {
             navigate("/login")
@@ -34,50 +35,11 @@ const Media = () => {
         }
     }, [])    
 
-    useEffect(() => {
-
-        var localState = JSON.parse(localStorage.getItem(`Group${groupID}`))
-        let latest = 3
-
-        if (!(localState === null)) {
-            // check to make sure is up to date
-            
-            fetchWithTimeout(
-                `${process.env.REACT_APP_BACKEND_API}/groups/fetchLatestPostID/${groupID}`
-            ).then(
-                (res) => {
-                    if (!res.ok) {
-                        // TODO: add bad case where server fails
-                        // probably where fails to fetch due to incorrect session cookie
-                        console.log(res.status)
-                        throw "ServerError"
-                    }
-                    return res.json()
-                }
-            ).then(
-                (data) => {
-                    latest = data.id
-                    setLatestPostID(data.id)
-                    if (localState.latestPostID === latestPostID) {
-                        setPosts(localState.posts)
-                        setOldestPostID(localState.oldestPostID)
-                        return
-                    }
-                }
-            ).catch(
-                (e) => {
-                    console.log(e)
-                }
-            )
-        }
-
-        // where localstate either doesn't exist or is out of date
-        // overwrite localstorage
-
+    const reloadPosts = () => {
         fetchWithTimeout(
             `${process.env.REACT_APP_BACKEND_API}/groups/fetchPostRange/${groupID}?`
             + new URLSearchParams({
-                start_id: latest,
+                start_id: latestPostID,
                 requested_posts: POSTQUANTITY
             })
         ).then(
@@ -100,14 +62,93 @@ const Media = () => {
                 console.log(e)
             }
         )
-        
+    }
+
+
+    useEffect(() => {
+
+        var localState = JSON.parse(localStorage.getItem(`Group${groupID}`))
+
+        var latest = null
+        if (!(localState === null)) {
+            // check to make sure is up to date
+            
+            fetchWithTimeout(
+                `${process.env.REACT_APP_BACKEND_API}/groups/fetchLatestPostID/${groupID}`
+            ).then(
+                (res) => {
+                    if (!res.ok) {
+                        // TODO: add bad case where server fails
+                        // probably where fails to fetch due to incorrect session cookie
+                        console.log(res.status)
+                        throw "ServerError"
+                    }
+                    return res.json()
+                }
+            ).then(
+                (data) => {
+                    latest = data.id
+                    setLatestPostID(data.id)
+                    if (localState.latestPostID === latestPostID) {
+                        setPosts(localState.posts)
+                        setOldestPostID(localState.oldestPostID)
+                        return true
+                    }
+                    return false
+                }
+            ).then(
+                // where localstate either doesn't exist or is out of date
+                // overwrite localstorage
+                (localExists) => {
+                    if (localExists) return
+                    fetchWithTimeout(
+                        `${process.env.REACT_APP_BACKEND_API}/groups/fetchPostRange/${groupID}?`
+                        + new URLSearchParams({
+                            start_id: latest,
+                            requested_posts: POSTQUANTITY
+                        })
+                    ).then(
+                        (res) => {
+                            if (!res.ok) {
+                              // TODO: add bad case where server fails
+                              console.log(res.status)
+                              throw "ServerError"
+                            }
+                            return res.json()
+                        }
+                    ).then(
+                        async (data) => {
+                            let requestedPostIDs = data.map((item) => {return item.id})
+                            // console.log(requestedPostIDs)
+                            setPosts(await asyncFetchPosts(requestedPostIDs))
+                        }
+                    ).catch(
+                        (e) => {
+                            console.log(e)
+                        }
+                    )
+                }
+            ).catch(
+                (e) => {
+                    console.log(e)
+                }
+            )
+        }
 
     }, [])
 
     
     useEffect(() => {
-        localStorage.setItem(`Group${groupID}`, JSON.stringify(posts))
-    }, [posts])
+        localStorage.setItem(
+            `Group${groupID}`, 
+            JSON.stringify({
+                posts: posts,
+                latestPostID: latestPostID,
+                oldestPostID: oldestPostID
+            })
+        )
+    }, [posts, latestPostID, oldestPostID])
+
 
     // function addMessage(message, image) {
     //     const content = message
@@ -128,11 +169,16 @@ const Media = () => {
 
         fetchWithTimeout(
             `${process.env.REACT_APP_BACKEND_API}/posts/create`,{
-                body: {
+                method: 'POST',
+                headers: {
+                  'Accept': 'application/json',
+                  'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({
                     body: message.body,
                     image: message.image,
                     group_id: DEMOGROUP
-                }
+                })
             } 
         ).then(
             (res) => {
