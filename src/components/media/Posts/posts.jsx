@@ -1,10 +1,10 @@
-import React, { forwardRef, useEffect, useImperativeHandle, useRef, useState } from 'react'
+import React, { forwardRef, useImperativeHandle, useRef, useState } from 'react'
 
 function Post({post}) {
     return (
       <div className='post'>
           <div className='post-info'>
-            <img className='user-image' src={''}></img>
+            <img className='user-image' src={''} alt=""></img>
             <p className='post-user'><b>{post.username}</b> on {post.created}: </p>
           </div>
           
@@ -13,7 +13,7 @@ function Post({post}) {
           <p className='post-content'>{post.body}</p>
           <br></br>
 
-          <img className='post-image' src={post.data_url}></img>
+          <img className='post-image' src={post.data_url} alt=""></img>
       </div>
     )
   }
@@ -33,7 +33,7 @@ const Posts = forwardRef((props, ref) => {
         }
       }
       },
-      [thisRef]
+      []
     );
 
     // useImperativeHandle(ref, 
