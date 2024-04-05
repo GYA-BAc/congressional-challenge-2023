@@ -1,7 +1,6 @@
-import React, {} from 'react'
+import React, { forwardRef, useEffect, useImperativeHandle, useRef, useState } from 'react'
 
 function Post({post}) {
-    console.log(post.image)
     return (
       <div className='post'>
           <div className='post-info'>
@@ -21,11 +20,44 @@ function Post({post}) {
 
 
 
-export default function Posts({posts}) {
-    console.log(posts)
+const Posts = forwardRef((props, ref) => {
+    // console.log(posts)
+    const thisRef = useRef(null)
+    const [posts, setPosts] = useState([])
+
+
+    useImperativeHandle(ref, () => {
+      return {
+        updatePosts: (posts) => {
+          setPosts(posts)
+        }
+      }
+      },
+      [thisRef]
+    );
+
+    // useImperativeHandle(ref, 
+    //   () => {
+    //       return {
+    //         updatePosts: (posts) => {
+    //           console.log(ref)
+    //           setPosts(posts)
+    //         }
+    //       }
+    //   }
+    // )
+
     return (
-      posts.slice(0).reverse().map(post => {
-          return <Post post={post} key={post.id}/>
-      })
+      <div ref={thisRef}>
+        {
+        posts.slice(0).map(post => {
+            return <Post post={post} key={post.id}/>
+        })
+        }
+      </div>
+      
     )
   }
+)
+
+export default Posts

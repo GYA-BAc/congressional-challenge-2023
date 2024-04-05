@@ -1,4 +1,4 @@
-import { React, useEffect, useState} from "react";
+import { React, useEffect, useRef, useState} from "react";
 import UserPanel from "../components/media/UserPanel";
 import UploadDialogue from "../components/media/UploadDialogue";
 import Posts from "../components/media/Posts/posts";
@@ -22,6 +22,8 @@ const Media = () => {
     //     oldest: null,
     // })
 
+    const postRef = useRef(null)
+
     const [groupID, setGroupID] = useState(DEMOGROUP)
     const [posts, setPosts] = useState([])
     const [latestPostID, setLatestPostID] = useState(null)
@@ -36,36 +38,6 @@ const Media = () => {
     }, [])    
 
     const reloadPosts = () => {
-        fetchWithTimeout(
-            `${process.env.REACT_APP_BACKEND_API}/groups/fetchPostRange/${groupID}?`
-            + new URLSearchParams({
-                start_id: latestPostID,
-                requested_posts: POSTQUANTITY
-            })
-        ).then(
-            (res) => {
-                if (!res.ok) {
-                  // TODO: add bad case where server fails
-                  console.log(res.status)
-                  throw "ServerError"
-                }
-                return res.json()
-            }
-        ).then(
-            async (data) => {
-                let requestedPostIDs = data.map((item) => {return item.id})
-                // console.log(requestedPostIDs)
-                setPosts(await asyncFetchPosts(requestedPostIDs))
-            }
-        ).catch(
-            (e) => {
-                console.log(e)
-            }
-        )
-    }
-
-
-    useEffect(() => {
 
         var localState = JSON.parse(localStorage.getItem(`Group${groupID}`))
 
@@ -84,17 +56,20 @@ const Media = () => {
                         console.log(res.status)
                         throw "ServerError"
                     }
+
                     return res.json()
                 }
             ).then(
                 (data) => {
                     latest = data.id
                     setLatestPostID(data.id)
-                    if (localState.latestPostID === latestPostID) {
+
+                    if (localState.latestPostID === latest) {
                         setPosts(localState.posts)
                         setOldestPostID(localState.oldestPostID)
                         return true
                     }
+
                     return false
                 }
             ).then(
@@ -120,8 +95,9 @@ const Media = () => {
                     ).then(
                         async (data) => {
                             let requestedPostIDs = data.map((item) => {return item.id})
-                            // console.log(requestedPostIDs)
-                            setPosts(await asyncFetchPosts(requestedPostIDs))
+                            postRef.current.updatePosts(
+                                await asyncFetchPosts(requestedPostIDs)
+                            )
                         }
                     ).catch(
                         (e) => {
@@ -135,7 +111,11 @@ const Media = () => {
                 }
             )
         }
+    }
 
+
+    useEffect(() => {
+        reloadPosts()
     }, [])
 
     
@@ -167,6 +147,7 @@ const Media = () => {
     // }
 
     const addMessage = (message) => {
+        // TODO: make message reload
 
         fetchWithTimeout(
             `${process.env.REACT_APP_BACKEND_API}/posts/create`,{
@@ -188,27 +169,10 @@ const Media = () => {
                     console.log(res.status)
                     throw "ServerError"
                 }
-                reloadPosts()
             }   
         ).then(
             () => {
-                fetchWithTimeout(
-                    `${process.env.REACT_APP_BACKEND_API}/groups/fetchLatestPostID/${groupID}`
-                ).then(
-                    (res) => {
-                        if (!res.ok) {
-                            // TODO: add bad case where server fails
-                            // probably where fails to fetch due to incorrect session cookie
-                            console.log(res.status)
-                            throw "ServerError"
-                        }
-                        return res.json()
-                    }
-                ).then(
-                    (data) => {
-                        setLatestPostID(data.id)
-                    }
-                )
+                reloadPosts()
             }
         ).catch(
             (e) => {
@@ -225,7 +189,7 @@ const Media = () => {
             <UserPanel/>
             <UploadDialogue postFunction={addMessage}/>
             <div className="post-container">
-                <Posts posts={posts}/>
+                <Posts ref={postRef}/>
 
                 <div className='post'>
                     <div className='post-info'>
