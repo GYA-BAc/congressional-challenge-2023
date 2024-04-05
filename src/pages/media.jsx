@@ -6,8 +6,6 @@ import { useNavigate } from "react-router-dom";
 import { fetchWithTimeout, asyncFetchPosts } from "../Utils";
 
 import "./media.css"
-import { setSelectionRange } from "@testing-library/user-event/dist/utils";
-
 
 const DEMOGROUP = 1
 const POSTQUANTITY = 5
@@ -24,7 +22,6 @@ const Media = () => {
 
     const postRef = useRef(null)
 
-    const [groupID, setGroupID] = useState(DEMOGROUP)
     const [posts, setPosts] = useState([])
     const [latestPostID, setLatestPostID] = useState(null)
     const [oldestPostID, setOldestPostID] = useState(null)
@@ -39,7 +36,7 @@ const Media = () => {
 
     const reloadPosts = () => {
 
-        var localState = JSON.parse(localStorage.getItem(`Group${groupID}`))
+        var localState = JSON.parse(localStorage.getItem(`Group${DEMOGROUP}`))
 
         var latest = latestPostID
 
@@ -47,14 +44,14 @@ const Media = () => {
             // check to make sure is up to date
             
             fetchWithTimeout(
-                `${process.env.REACT_APP_BACKEND_API}/groups/fetchLatestPostID/${groupID}`
+                `${process.env.REACT_APP_BACKEND_API}/groups/fetchLatestPostID/${DEMOGROUP}`
             ).then(
                 (res) => {
                     if (!res.ok) {
                         // TODO: add bad case where server fails
                         // probably where fails to fetch due to incorrect session cookie
                         console.log(res.status)
-                        throw "ServerError"
+                        throw Error("ServerError")
                     }
 
                     return res.json()
@@ -78,7 +75,7 @@ const Media = () => {
                 (localExists) => {
                     if (localExists) return
                     fetchWithTimeout(
-                        `${process.env.REACT_APP_BACKEND_API}/groups/fetchPostRange/${groupID}?`
+                        `${process.env.REACT_APP_BACKEND_API}/groups/fetchPostRange/${DEMOGROUP}?`
                         + new URLSearchParams({
                             start_id: latest,
                             requested_posts: POSTQUANTITY
@@ -88,7 +85,7 @@ const Media = () => {
                             if (!res.ok) {
                               // TODO: add bad case where server fails
                               console.log(res.status)
-                              throw "ServerError"
+                              throw Error("ServerError")
                             }
                             return res.json()
                         }
@@ -121,7 +118,7 @@ const Media = () => {
     
     useEffect(() => {
         localStorage.setItem(
-            `Group${groupID}`, 
+            `Group${DEMOGROUP}`, 
             JSON.stringify({
                 posts: posts,
                 latestPostID: latestPostID,
@@ -167,7 +164,7 @@ const Media = () => {
                 if (!res.ok) {
                     // TODO: add bad case where server fails
                     console.log(res.status)
-                    throw "ServerError"
+                    throw Error("ServerError")
                 }
             }   
         ).then(
@@ -193,7 +190,7 @@ const Media = () => {
 
                 <div className='post'>
                     <div className='post-info'>
-                        <img className='user-image' src="assets/turtle.png"></img>
+                        <img className='user-image' src="assets/turtle.png" alt=""></img>
                         <p className='post-user'><b>Admin_Turtle</b> on Sun Oct 22 2023 13:58:58 GMT-0500 (Central Daylight Time): </p>
                     </div>
 
@@ -201,13 +198,13 @@ const Media = () => {
 
                     <p className='post-content'>Also, posts will be moderated by an AI, so please don't post anything bad!</p>
                     <br></br>
-                    <img className='post-image' src="assets/logo.png"></img>
+                    <img className='post-image' src="assets/logo.png" alt=""></img>
                 </div>
 
 
                 <div className='post'>
                     <div className='post-info'>
-                        <img className='user-image' src="assets/turtle.png"></img>
+                        <img className='user-image' src="assets/turtle.png" alt=""></img>
                         <p className='post-user'><b>Admin_Turtle</b> on Sun Oct 22 2023 13:58:58 GMT-0500 (Central Daylight Time): </p>
                     </div>
 
