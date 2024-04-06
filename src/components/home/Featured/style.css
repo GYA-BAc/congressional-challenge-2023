@@ -61,7 +61,7 @@
 .container .box:nth-child(1) {
     grid-column: span 2;
 
-    background-image: url("~/public/assets/logo.png");
+    background-image: url("~/public/assets/Ecotrace.png");
     background-size: contain;
     background-repeat: no-repeat;
     background-position: 50% 50%;
@@ -76,4 +76,9 @@
 .container .box:nth-child(3) img {
     max-width: 100%;
     border-radius: 15px;
+}
+
+.container .box:nth-child(7) {
+    grid-column: span 2;
+
 }
