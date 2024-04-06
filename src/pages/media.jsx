@@ -27,6 +27,35 @@ const Media = () => {
     const [oldestPostID, setOldestPostID] = useState(null)
 
 
+
+    useEffect(() => {
+        // check geolocation
+        if (!('geolocation' in navigator)) {
+            navigate("/home")
+            alert("Cannot use App without Geolocation")
+            return
+        } 
+        // navigator.geolocation.getCurrentPosition(
+        //     (position) => {
+        //         console.log(position)
+        //     },
+        //     (error) => {console.log(error)},
+        //     {maximumAge:10000, timeout:5000, enableHighAccuracy: true}
+        // )
+        
+        // var a = []
+        // navigator.geolocation.getCurrentPosition(
+        //     (position) => {
+        //         a.push(position)
+        //         console.log(a[0])
+
+        //     },
+        //     (error) => {console.log(error)},
+        //     {maximumAge:10000, timeout:5000, enableHighAccuracy: true}
+        // )
+    }, [])
+
+
     useEffect(() => {
         if (localStorage.getItem("currentUserID") === null) {
             navigate("/login")
@@ -144,38 +173,51 @@ const Media = () => {
     // }
 
     const addMessage = (message) => {
-        // TODO: make message reload
-
-        fetchWithTimeout(
-            `${process.env.REACT_APP_BACKEND_API}/posts/create`,{
-                method: 'POST',
-                headers: {
-                  'Accept': 'application/json',
-                  'Content-Type': 'application/json'
-                },
-                body: JSON.stringify({
-                    body: message.body,
-                    image: message.image,
-                    group_id: DEMOGROUP
-                })
-            } 
-        ).then(
-            (res) => {
-                if (!res.ok) {
-                    // TODO: add bad case where server fails
-                    console.log(res.status)
-                    throw Error("ServerError")
+        
+        const sendCreateRequest = (location) => {
+            fetchWithTimeout(
+                `${process.env.REACT_APP_BACKEND_API}/posts/create`,{
+                    method: 'POST',
+                    headers: {
+                    'Accept': 'application/json',
+                    'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({
+                        body: message.body,
+                        image: message.image,
+                        group_id: DEMOGROUP,
+                        location: {
+                            latitude: location.coords.latitude,
+                            longitude: location.coords.longitude
+                        }
+                    })
+                } 
+            ).then(
+                (res) => {
+                    if (!res.ok) {
+                        // TODO: add bad case where server fails
+                        console.log(res.status)
+                        throw Error("ServerError")
+                    }
+                }   
+            ).then(
+                () => {
+                    reloadPosts()
                 }
-            }   
-        ).then(
-            () => {
-                reloadPosts()
-            }
-        ).catch(
-            (e) => {
-                console.log(e)
-                alert("Could not send post.")
-            }
+            ).catch(
+                (e) => {
+                    console.log(e)
+                    alert("Could not send post.")
+                }
+            )
+        }
+
+        navigator.geolocation.getCurrentPosition(
+            (location) => {
+                sendCreateRequest(location)
+            },
+            (error) => {console.log(error)},
+            {maximumAge:10000, timeout:5000, enableHighAccuracy: true}
         )
     }
 
