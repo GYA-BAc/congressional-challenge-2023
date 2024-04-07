@@ -8,7 +8,11 @@ export async function fetchWithTimeout(resource, options = {}) {
       ...options,
       signal: controller.signal,
       mode: 'cors',
-      credentials: 'include'
+      credentials: 'include',
+      headers: {
+        ...options.headers,
+        // 'ngrok-skip-browser-warning':true
+      }
     });
     clearTimeout(id);
   

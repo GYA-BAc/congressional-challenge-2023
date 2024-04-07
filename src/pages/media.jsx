@@ -178,10 +178,14 @@ const Media = () => {
             fetchWithTimeout(
                 `${process.env.REACT_APP_BACKEND_API}/posts/create`,{
                     method: 'POST',
+                    // headers: {
+                    // 'Accept': 'application/json',
+                    // 'Content-Type': 'application/json'
+                    // },
                     headers: {
-                    'Accept': 'application/json',
-                    'Content-Type': 'application/json'
-                    },
+                        'Accept': 'text/plain',
+                        'Content-Type': 'text/plain'
+                        },
                     body: JSON.stringify({
                         body: message.body,
                         image: message.image,

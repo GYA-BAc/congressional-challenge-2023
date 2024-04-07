@@ -45,7 +45,8 @@ const Login = () => {
     const attemptLogin = () => {
         fetchWithTimeout(`${process.env.REACT_APP_BACKEND_API}/auth/login`, {
             method: "POST",
-            headers: {'Accept': 'application/json', 'Content-Type': 'application/json'}, 
+            // headers: {'Accept': 'application/json', 'Content-Type': 'application/json'}, 
+            headers: {'Accept': 'text/plain', 'Content-Type': 'text/plain'}, 
             body: JSON.stringify({
                 'username': document.getElementById('input-container').elements[0].value, 
                 'password': document.getElementById('input-container').elements[1].value
