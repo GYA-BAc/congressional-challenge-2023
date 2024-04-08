@@ -71,7 +71,33 @@ const Login = () => {
     }
 
     const attemptRegister = () => {
-        
+        fetchWithTimeout(`${process.env.REACT_APP_BACKEND_API}/auth/register`, {
+            method: "POST",
+            // headers: {'Accept': 'application/json', 'Content-Type': 'application/json'}, 
+            headers: {'Accept': 'text/plain', 'Content-Type': 'text/plain'}, 
+            body: JSON.stringify({
+                'username': document.getElementById('input-container').elements[0].value, 
+                'password': document.getElementById('input-container').elements[1].value
+            }),
+            timeout: 3000
+          }).then(
+            (res) => {
+                (res.ok) ? (() => {
+                    alert("Successfully registered!")
+                    document.getElementById('input-container').elements[0].value = ""
+                    document.getElementById('input-container').elements[1].value = ""
+                })() : (() => {
+                    alert("Could not register. Try another username")
+                })()
+                
+              // return res.json()
+            }
+          ).catch(
+            // failed to login due to timeout
+            () => {
+              alert("Could not connect to our servers. Check your internet connection")
+            }
+        )
     }
 
 
@@ -97,7 +123,7 @@ const Login = () => {
                     </form>
 
                     <div id='submit-container'>
-                        <button id='register-button'>Register</button>
+                        <button onClick={attemptRegister} id='register-button'>Register</button>
                         <button onClick={attemptLogin} id='login-button'>Login</button>
                     </div>
                 </div>
