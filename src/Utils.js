@@ -11,7 +11,7 @@ export async function fetchWithTimeout(resource, options = {}) {
       credentials: 'include',
       headers: {
         ...options.headers,
-        // 'ngrok-skip-browser-warning':true
+        'ngrok-skip-browser-warning': true
       }
     });
     clearTimeout(id);
@@ -26,6 +26,13 @@ export async function asyncFetchPosts(posts) {
       posts.map(async (id) => {
         let tmp = await fetch(
           `${process.env.REACT_APP_BACKEND_API}/posts/fetch/${id}`,
+          {
+            mode: 'cors',
+            credentials: 'include',
+            headers: {
+              'ngrok-skip-browser-warning': true
+            }
+          }
         )
         return tmp.json()
       })

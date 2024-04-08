@@ -9,7 +9,12 @@ const Login = () => {
     const navigate = useNavigate()
 
     const correctLogin = () => {
-        fetchWithTimeout(`${process.env.REACT_APP_BACKEND_API}/auth/fetchUserData`).then(
+        fetchWithTimeout(
+            `${process.env.REACT_APP_BACKEND_API}/auth/fetchUserData`, {
+                method: "GET",
+                headers: {'Accept': 'text/plain', 'Content-Type': 'text/plain'}, 
+            }
+        ).then(
             
             (res) => {
               if (!res.ok) {
@@ -54,10 +59,8 @@ const Login = () => {
             timeout: 3000
           }).then(
             (res) => {
-              (res.ok) ? correctLogin(): incorrectLogin()
-              // console.log(res.status)
+                (res.ok) ? correctLogin(): incorrectLogin()
                 
-              // console.log(res.headers)
               // return res.json()
             }
           ).catch(
