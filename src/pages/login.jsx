@@ -27,6 +27,7 @@ const Login = () => {
             (data) => {
                 // console.log(AsyncStorage) 
                 localStorage.setItem('currentUserID', data.content.id.toString())
+                localStorage.setItem('currentUsername', data.content.username.toString())
                 navigate("/media")
             }
         ).catch(

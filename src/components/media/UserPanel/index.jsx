@@ -14,7 +14,7 @@ export default function UserPanel() {
                     <Link to="/" id="link">
                         <img className="menu" src="/assets/menu.png"></img>
                     </Link>
-                    <UserProfile/>
+                    <UserProfile username={localStorage.getItem("currentUsername")}/>
                     <div className="error-panel" hidden ></div>
                 </div>
 

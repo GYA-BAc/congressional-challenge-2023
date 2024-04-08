@@ -4,7 +4,7 @@ function Post({post}) {
     return (
       <div className='post'>
           <div className='post-info'>
-            <img className='user-image' src={''} alt=""></img>
+            <img className='user-image' src={"/assets/pfp.png"} alt=""></img>
             <p className='post-user'><b>{post.username}</b> on {post.created}: </p>
           </div>
           
