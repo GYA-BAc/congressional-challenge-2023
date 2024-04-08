@@ -41,7 +41,7 @@ export default function UploadDialogue(postFunction) {
     // };
 
     const handleSubmit = (category) => {
-        console.log(category)
+        // console.log(category)
 
         switch (category) {
             case "plastic":

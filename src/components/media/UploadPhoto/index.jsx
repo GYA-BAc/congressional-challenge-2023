@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import * as tmImage from '@teachablemachine/image';
+import { loadLayersModel } from '@tensorflow/tfjs-layers'
 import UploadDialogue from "../UploadDialogue";
 
 import "./style.css"
@@ -8,8 +9,9 @@ import "./style.css"
 export default function UploadPhoto() {
 
     const URL = "https://teachablemachine.withgoogle.com/models/fVe21QzxG/";
-    let model, maxPredictions;
-    let webcam
+    const [model, setModel] = useState(null)
+    const [maxPredictions, setMaxPredictions] = useState(null)
+    var webcam
 
     const dialogueBox = document.querySelector('.upload-dialogue-container');
     const webcamContainer = document.getElementById("webcam-container")
@@ -21,17 +23,14 @@ export default function UploadPhoto() {
     useEffect(() => {
         const modelURL = URL + "model.json";
         const metadataURL = URL + "metadata.json";
-        try{
-            tmImage.load(modelURL, metadataURL).then(
-                (ret) => {
-                    model = ret
-                    maxPredictions = model.getTotalClasses();
-                    console.log()
-                }
-            );
-        } catch(e) {
-            console.log(e)
-        }
+
+        // try load from localstorage first
+        tmImage.load(modelURL, metadataURL).then(
+            async (ret) => {
+                setModel(ret)
+                setMaxPredictions(ret.getTotalClasses())
+            }
+        )
 
     }, [])
 
@@ -51,31 +50,57 @@ export default function UploadPhoto() {
         errorBox.setAttribute("hidden", "true")
         errorBox.innerHTML = ""
 
-        navigator.mediaDevices.getUserMedia({video: true})
-
         try {
             const flip = true; // whether to flip the webcam
             webcam = new tmImage.Webcam(200, 200, flip); // width, height, flip
             let constraints = {
                 audio: false,
-                video: {
-                    facingMode: {
-                        exact: 'environment'
-                    }
-                }
+                // video: {
+                //     facingMode: {
+                //         exact: 'environment'
+                //     }
+                // }
             }
 
             await webcam.setup(constraints); // request access to the webcam
-            await webcam.play();
+            await webcam.play()
+            document.getElementById("webcam-container").appendChild(webcam.canvas)
+
             window.requestAnimationFrame(loop);
             // append elements to the DOM
-            document.getElementById("webcam-container").appendChild(webcam.canvas);
+            // document.getElementById("webcam-container")
         } catch(e){
             console.log(e)
         }
     }
 
     async function loop() {
+
+        const predictClass = async () => {
+            // predict can take in an image, video or canvas html element
+            let prediction = await model.predict(webcam.canvas);
+            const predictionBox = document.querySelector('.prediction');
+            //console.log(prediction)
+    
+            let highestPrediction = 0
+            let currentProbability = 0
+    
+            for (let i=0; i < maxPredictions; i++) {
+                if (prediction[i].probability > currentProbability) {
+                    // if (prediction[i].className === "human") {
+                    //     continue
+                    // }
+                    highestPrediction = i
+                    currentProbability = prediction[i].probability
+                }
+            }
+    
+            // console.log(prediction[highestPrediction].className)
+    
+            predictionBox.innerHTML = prediction[highestPrediction].className
+            
+        }
+
         const dialogueBox = document.querySelector('.upload-dialogue-container');
         const webcamContainer = document.getElementById("webcam-container")
         if (dialogueBox.getAttribute("hidden") !== null) {
@@ -89,38 +114,14 @@ export default function UploadPhoto() {
         webcam.update(); // update the webcam frame
 
         try {
-            await predict();
+            await predictClass();
             window.requestAnimationFrame(loop);
         } catch(e) {
             // if something errors here, it could be that user has left page. Either way, stop webcam
+            console.log(e)
             webcam.stop()
             return
         }
-        
-    }
-
-    async function predict() {
-        // predict can take in an image, video or canvas html element
-        let prediction = await model.predict(webcam.canvas);
-        const predictionBox = document.querySelector('.prediction');
-        //console.log(prediction)
-
-        let highestPrediction = 0
-        let currentProbability = 0
-
-        for (let i=0; i < maxPredictions; i++) {
-            if (prediction[i].probability > currentProbability) {
-                // if (prediction[i].className === "human") {
-                //     continue
-                // }
-                highestPrediction = i
-                currentProbability = prediction[i].probability
-            }
-        }
-
-        // console.log(prediction[highestPrediction].className)
-
-        predictionBox.innerHTML = prediction[highestPrediction].className
         
     }
 

@@ -1,6 +1,4 @@
 import './login.css';
-import { useEffect, useRef, useState } from "react"
-import Navbar from '../components/home/Navbar';
 import { Link } from "react-router-dom"
 import { fetchWithTimeout } from '../Utils';
 import { useNavigate } from 'react-router-dom';
