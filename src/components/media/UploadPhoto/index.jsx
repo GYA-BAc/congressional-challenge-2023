@@ -61,6 +61,7 @@ export default function UploadPhoto() {
             }
 
             await webcam.setup(constraints); // request access to the webcam
+            
             await webcam.play()
             document.getElementById("webcam-container").appendChild(webcam.canvas)
 
