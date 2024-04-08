@@ -1,7 +1,5 @@
 import React, { useEffect, useState } from "react";
 import * as tmImage from '@teachablemachine/image';
-import { loadLayersModel } from '@tensorflow/tfjs-layers'
-import UploadDialogue from "../UploadDialogue";
 
 import "./style.css"
 
@@ -55,11 +53,11 @@ export default function UploadPhoto() {
             webcam = new tmImage.Webcam(200, 200, flip); // width, height, flip
             let constraints = {
                 audio: false,
-                // video: {
-                //     facingMode: {
-                //         exact: 'environment'
-                //     }
-                // }
+                video: {
+                    facingMode: {
+                        exact: 'environment'
+                    }
+                }
             }
 
             await webcam.setup(constraints); // request access to the webcam
