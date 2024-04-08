@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import * as tmImage from '@teachablemachine/image';
 import UploadDialogue from "../UploadDialogue";
 
@@ -11,35 +11,47 @@ export default function UploadPhoto() {
     let model, maxPredictions;
     let webcam
 
+    const dialogueBox = document.querySelector('.upload-dialogue-container');
+    const webcamContainer = document.getElementById("webcam-container")
+    const predictionBox = document.querySelector('.prediction');
+    const suggestionBox = document.querySelector('.ai-suggestion')
+    const commentBox = document.querySelector(".comment")
+    const errorBox = document.querySelector(".error-panel")
+
+    useEffect(() => {
+        const modelURL = URL + "model.json";
+        const metadataURL = URL + "metadata.json";
+        try{
+            tmImage.load(modelURL, metadataURL).then(
+                (ret) => {
+                    model = ret
+                    maxPredictions = model.getTotalClasses();
+                    console.log()
+                }
+            );
+        } catch(e) {
+            console.log(e)
+        }
+
+    }, [])
+
+
     // Load the image model and setup the webcam
     async function init() {
         
         // show dialogue box
-        const dialogueBox = document.querySelector('.upload-dialogue-container');
         if (dialogueBox.getAttribute("hidden") === null) return
         dialogueBox.removeAttribute("hidden")
         
-        const webcamContainer = document.getElementById("webcam-container")
         webcamContainer.removeAttribute("freeze")
-
-        const predictionBox = document.querySelector('.prediction');
         predictionBox.innerHTML = "Looks like: "
-
-        const suggestionBox = document.querySelector('.ai-suggestion')
         suggestionBox.innerHTML = ""
-
-        const commentBox = document.querySelector(".comment")
         commentBox.value = ""
 
-        const errorBox = document.querySelector(".error-panel")
         errorBox.setAttribute("hidden", "true")
         errorBox.innerHTML = ""
 
-        const modelURL = URL + "model.json";
-        const metadataURL = URL + "metadata.json";
-        model = await tmImage.load(modelURL, metadataURL);
-        maxPredictions = model.getTotalClasses();
-
+        navigator.mediaDevices.getUserMedia({video: true})
 
         try {
             const flip = true; // whether to flip the webcam
@@ -47,7 +59,9 @@ export default function UploadPhoto() {
             let constraints = {
                 audio: false,
                 video: {
-                    facingMode: "environment"
+                    facingMode: {
+                        exact: 'environment'
+                    }
                 }
             }
 

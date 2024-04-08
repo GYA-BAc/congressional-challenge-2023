@@ -32,8 +32,7 @@ const Posts = forwardRef((props, ref) => {
           setPosts(posts)
         }
       }
-      },
-      []
+      }
     );
 
     // useImperativeHandle(ref, 
