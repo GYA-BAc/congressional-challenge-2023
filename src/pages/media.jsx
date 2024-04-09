@@ -8,7 +8,7 @@ import { fetchWithTimeout, asyncFetchPosts } from "../Utils";
 import "./media.css"
 
 const DEMOGROUP = 1
-const POSTQUANTITY = 5
+const POSTQUANTITY = 10
 
 const Media = () => {
     const navigate = useNavigate()
