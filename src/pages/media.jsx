@@ -233,7 +233,7 @@ const Media = () => {
             <UploadDialogue postFunction={addMessage}/>
             <div className="post-container">
                 <Posts ref={postRef}/>
-
+                {/* 
                 <div className='post'>
                     <div className='post-info'>
                         <img className='user-image' src="assets/turtle.png" alt=""></img>
@@ -245,7 +245,7 @@ const Media = () => {
                     <p className='post-content'>Also, posts will be moderated by an AI, so please don't post anything bad!</p>
                     <br></br>
                     <img className='post-image' src="assets/logo.png" alt=""></img>
-                </div>
+                </div> */}
 
 
                 <div className='post'>

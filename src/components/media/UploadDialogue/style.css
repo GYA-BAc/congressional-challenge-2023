@@ -19,6 +19,7 @@
 }
 
 
+
 .upload-dialogue-container[hidden] {
     opacity: 0;
     z-index: 1;
@@ -146,10 +147,9 @@ textarea {
         background-color: #2225;
         backdrop-filter: blur(15px);
     
-        width: 65%;
+        width: 95%;
         height: 80%;
         top: 10px;
-        right: 10px;
     
         border-radius: 15px;
     
